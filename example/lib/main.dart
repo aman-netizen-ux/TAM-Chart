@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,     
+          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
           title: const Text("TAM Chart"),
         ),
         body: TAMChart(
@@ -53,7 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 tmColor: Colors.pink,
                 tamPosition: TamPositions.bottom),
             fontSize: 10,
-            size: const Size(200, 200))
-        );
+            size: const Size(200, 200)));
   }
 }

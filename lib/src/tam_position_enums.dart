@@ -1,1 +1,1 @@
-enum TamPositions {bottom, top, left, right, center}
+enum TamPositions { bottom, top, left, right, center }

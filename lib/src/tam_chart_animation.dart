@@ -17,8 +17,7 @@ class TAMChart extends StatefulWidget {
   State<TAMChart> createState() => _TAMChartState();
 }
 
-class _TAMChartState extends State<TAMChart>
-    with TickerProviderStateMixin {
+class _TAMChartState extends State<TAMChart> with TickerProviderStateMixin {
   late AnimationController _tmcontroller;
   late AnimationController _samController;
   late AnimationController _tamController;
@@ -27,36 +26,42 @@ class _TAMChartState extends State<TAMChart>
   late Animation<double> _tamAnimation;
 
   AnimationController _initializeAnimationController(int durationInSeconds) {
-  return AnimationController(
-    duration: Duration(seconds: durationInSeconds),
-    vsync: this,
-  );
-}
+    return AnimationController(
+      duration: Duration(seconds: durationInSeconds),
+      vsync: this,
+    );
+  }
 
-Animation<double> _initializeTweenAnimation(
-    AnimationController controller, double? forwardFrom) {
-  Animation<double> animation = Tween<double>(begin: 0, end: 2 * pi).animate(controller)
-    ..addListener(() {
-      setState(() {});
-    });
-  controller.forward(from: forwardFrom);
-  return animation;
-}
-
+  Animation<double> _initializeTweenAnimation(
+      AnimationController controller, double? forwardFrom) {
+    Animation<double> animation =
+        Tween<double>(begin: 0, end: 2 * pi).animate(controller)
+          ..addListener(() {
+            setState(() {});
+          });
+    controller.forward(from: forwardFrom);
+    return animation;
+  }
 
   @override
   void initState() {
     super.initState();
+
     ///For Outer Circle
-    _tmcontroller = _initializeAnimationController(widget.tamChartData.duration);
-    _tmAnimation = _initializeTweenAnimation(_tmcontroller, (0.17 * widget.tamChartData.duration)/100);
+    _tmcontroller =
+        _initializeAnimationController(widget.tamChartData.duration);
+    _tmAnimation = _initializeTweenAnimation(
+        _tmcontroller, (0.17 * widget.tamChartData.duration) / 100);
 
     //For Middle Circle
-    _samController = _initializeAnimationController(widget.tamChartData.duration * 75 ~/100);
-    _samAnimation = _initializeTweenAnimation(_samController, (0.08 * widget.tamChartData.duration)/100);
+    _samController = _initializeAnimationController(
+        widget.tamChartData.duration * 75 ~/ 100);
+    _samAnimation = _initializeTweenAnimation(
+        _samController, (0.08 * widget.tamChartData.duration) / 100);
 
     //For Inner Circle
-    _tamController =  _initializeAnimationController(widget.tamChartData.duration * 50 ~/100);
+    _tamController = _initializeAnimationController(
+        widget.tamChartData.duration * 50 ~/ 100);
     _tamAnimation = _initializeTweenAnimation(_samController, null);
   }
 
@@ -65,8 +70,12 @@ Animation<double> _initializeTweenAnimation(
     return Center(
       child: CustomPaint(
         size: widget.size,
-        painter: TAMChartPainter(tmAngle: _tmAnimation.value, samAngle: _samAnimation.value, tamAngle: _tamAnimation.value,
-            fontSize: widget.fontSize, tamChartData: widget.tamChartData),
+        painter: TAMChartPainter(
+            tmAngle: _tmAnimation.value,
+            samAngle: _samAnimation.value,
+            tamAngle: _tamAnimation.value,
+            fontSize: widget.fontSize,
+            tamChartData: widget.tamChartData),
       ),
     );
   }
@@ -79,4 +88,3 @@ Animation<double> _initializeTweenAnimation(
     super.dispose();
   }
 }
-

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:tam_chart/src/tam_chart_model.dart';
 import 'package:tam_chart/src/tam_position_enums.dart';
 
-
-
 class TAMChartPainter extends CustomPainter {
   final double tmAngle;
   final double samAngle;
@@ -13,7 +11,11 @@ class TAMChartPainter extends CustomPainter {
   final double fontSize;
 
   TAMChartPainter(
-      {required this.fontSize, required this.tamChartData, required this.tmAngle, required this.samAngle, required this.tamAngle});
+      {required this.fontSize,
+      required this.tamChartData,
+      required this.tmAngle,
+      required this.samAngle,
+      required this.tamAngle});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -28,12 +30,14 @@ class TAMChartPainter extends CustomPainter {
       double samRadius = maxRadius * (137 / 100) + 2;
       double tmRadius = maxRadius * (100 / 100);
 
-      createAnimatedCircle(paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius);
+      createAnimatedCircle(
+          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius);
 
-      createAnimatedCircle(paint, canvas, tamChartData!.samColor, samAngle, size, samRadius);
+      createAnimatedCircle(
+          paint, canvas, tamChartData!.samColor, samAngle, size, samRadius);
 
-    createAnimatedCircle(paint, canvas, tamChartData!.tmColor, tmAngle, size, tmRadius);
-     
+      createAnimatedCircle(
+          paint, canvas, tamChartData!.tmColor, tmAngle, size, tmRadius);
 
       //Drawing text for TM
       final textSpan = TextSpan(
@@ -430,7 +434,6 @@ TamPositions? stringToTamPosition(String tamPosition) {
   }
 }
 
-
 convertDataValues(double data) {
   if (data < 1000) {
     return data.toString();
@@ -446,28 +449,32 @@ convertDataValues(double data) {
   }
 }
 
-createAnimatedCircle(Paint paint, Canvas canvas, Color color, double angle, Size size, double radius){
+createAnimatedCircle(Paint paint, Canvas canvas, Color color, double angle,
+    Size size, double radius) {
   paint.color = color;
-       const int segmentCount = 4;
-    final int currentSegment = (angle * segmentCount).floor();
-    const double sweep = 2 * pi / segmentCount;
-    const double startAngle = -pi / 2; // Start at the top of the circle
+  const int segmentCount = 4;
+  final int currentSegment = (angle * segmentCount).floor();
+  const double sweep = 2 * pi / segmentCount;
+  const double startAngle = -pi / 2; // Start at the top of the circle
 
-    for (int i = 0; i <= currentSegment; i++) {
-      // For the current segment, use the animation progress to determine the sweep angle
-      double currentSweep = sweep;
-      if (i == currentSegment) {
-        currentSweep *= (angle * segmentCount) % 1;
-      }
-      // Calculate the start angle for the segment
-      double segmentStartAngle = startAngle + (sweep * i);
-      // Draw the segment
-      canvas.drawArc(
-        Rect.fromCenter(center: Offset(size.width / 2, size.height - radius), width: 2*radius, height: 2*radius),
-        segmentStartAngle,
-        currentSweep,
-        true,
-        paint,
-      );
+  for (int i = 0; i <= currentSegment; i++) {
+    // For the current segment, use the animation progress to determine the sweep angle
+    double currentSweep = sweep;
+    if (i == currentSegment) {
+      currentSweep *= (angle * segmentCount) % 1;
     }
+    // Calculate the start angle for the segment
+    double segmentStartAngle = startAngle + (sweep * i);
+    // Draw the segment
+    canvas.drawArc(
+      Rect.fromCenter(
+          center: Offset(size.width / 2, size.height - radius),
+          width: 2 * radius,
+          height: 2 * radius),
+      segmentStartAngle,
+      currentSweep,
+      true,
+      paint,
+    );
+  }
 }
