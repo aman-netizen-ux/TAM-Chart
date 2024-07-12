@@ -42,16 +42,16 @@ class _MyHomePageState extends State<MyHomePage> {
         body: TAMChart(
             tamChartData: TAMChartData(
                 duration: 16,
-                tamTextColor: Colors.white,
-                samTextColor: Colors.black12,
-                tmTextColor: Colors.deepPurpleAccent,
+                tamTextColor: Colors.black,
+                samTextColor: Colors.white,
+                somTextColor: Colors.black,
                 tam: 300,
                 sam: 1500,
-                tm: 750,
-                tamColor: Colors.yellow,
-                samColor: Colors.white,
-                tmColor: Colors.pink,
-                tamPosition: TamPositions.bottom),
+                som: 750,
+                tamColor: Colors.blue.shade100,
+                samColor: Colors.blue.shade300,
+                somColor: Colors.blue,
+                somPosition: SomPositions.top),
             fontSize: 10,
             size: const Size(200, 200)));
   }
