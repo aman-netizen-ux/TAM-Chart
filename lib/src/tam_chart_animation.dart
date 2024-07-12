@@ -3,10 +3,44 @@ import 'package:flutter/material.dart';
 import 'package:tam_chart/src/tam_chart_model.dart';
 import 'package:tam_chart/src/tam_chart_painter.dart';
 
+/// A widget that displays a Total Addressable Market (TAM) chart.
+///
+/// The [TAMChart] widget takes in [TAMChartData], font size, and size to render
+/// a TAM chart with animation for each circle representing different market segments.
 class TAMChart extends StatefulWidget {
+  /// The data to be displayed in the TAM chart with its styling properties.
+  /// 
+  /// Example usage:
+  /// ```dart
+  /// TAMChart(
+  ///   tamChartData: TAMChartData(
+  ///     duration: 16,
+  ///     tamTextColor: Colors.black,
+  ///     samTextColor: Colors.white,
+  ///     somTextColor: Colors.black,
+  ///     tam: 300,
+  ///     sam: 1500,
+  ///     som: 750,
+  ///     tamColor: Colors.blue.shade100,
+  ///     samColor: Colors.blue.shade300,
+  ///     somColor: Colors.blue,
+  ///     somPosition: SomPositions.top,
+  ///   ),
+  ///   fontSize: 10,
+  ///   size: const Size(200, 200),
+  /// )
+  /// ```
   final TAMChartData tamChartData;
+
+  /// The font size for the labels in the TAM chart.
   final double fontSize;
+
+  /// The size of the TAM chart.
   final Size size;
+
+  /// Creates a TAMChart widget.
+  ///
+  /// The [tamChartData], [fontSize], and [size] parameters must not be null.
   const TAMChart(
       {super.key,
       required this.tamChartData,
@@ -71,7 +105,7 @@ class _TAMChartState extends State<TAMChart> with TickerProviderStateMixin {
       child: CustomPaint(
         size: widget.size,
         painter: TAMChartPainter(
-            tmAngle: _tmAnimation.value,
+            somAngle: _tmAnimation.value,
             samAngle: _samAnimation.value,
             tamAngle: _tamAnimation.value,
             fontSize: widget.fontSize,

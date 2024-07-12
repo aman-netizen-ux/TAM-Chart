@@ -1,19 +1,37 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:tam_chart/src/tam_chart_model.dart';
-import 'package:tam_chart/src/tam_position_enums.dart';
+import 'package:tam_chart/src/som_position_enums.dart';
 
+/// A custom painter class that renders a Total Addressable Market (TAM) chart.
+///
+/// The [TAMChartPainter] class uses the provided [TAMChartData] to draw the TAM,
+/// SAM, and SOM circles with animated segments and labels.
 class TAMChartPainter extends CustomPainter {
-  final double tmAngle;
+  /// The angle of the SOM circle's animation.
+  final double somAngle;
+
+  /// The angle of the SAM circle's animation.
   final double samAngle;
+
+  /// The angle of the TAM circle's animation.
   final double tamAngle;
+
+  /// The data to be displayed in the TAM chart.
   final TAMChartData? tamChartData;
+
+  /// The font size for the labels in the TAM chart.
   final double fontSize;
+
+  /// Creates a [TAMChartPainter] instance.
+  ///
+  /// The [somAngle], [samAngle], [tamAngle], [tamChartData], and [fontSize]
+  /// parameters must not be null.
 
   TAMChartPainter(
       {required this.fontSize,
       required this.tamChartData,
-      required this.tmAngle,
+      required this.somAngle,
       required this.samAngle,
       required this.tamAngle});
 
@@ -22,28 +40,28 @@ class TAMChartPainter extends CustomPainter {
     Paint paint = Paint()..style = PaintingStyle.fill;
 
     //Bottom TAM CHART
-    if (tamChartData!.tamPosition == TamPositions.bottom) {
+    if (tamChartData!.somPosition == SomPositions.bottom) {
       // Calculating the radius for each circle based on the values
       double maxRadius =
           size.height / 4; // Assuming width and height of canvas are the same
       double tamRadius = maxRadius * (199 / 100);
       double samRadius = maxRadius * (137 / 100) + 2;
-      double tmRadius = maxRadius * (100 / 100);
+      double somRadius = maxRadius * (100 / 100);
 
-      createAnimatedCircle(
+      _createAnimatedCircle(
           paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius);
 
-      createAnimatedCircle(
+      _createAnimatedCircle(
           paint, canvas, tamChartData!.samColor, samAngle, size, samRadius);
 
-      createAnimatedCircle(
-          paint, canvas, tamChartData!.tmColor, tmAngle, size, tmRadius);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius);
 
-      //Drawing text for TM
+      //Drawing text for SOM
       final textSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tm).toString(),
+          text: _convertDataValues(tamChartData!.som).toString(),
           style:
-              TextStyle(color: tamChartData!.tmTextColor, fontSize: fontSize));
+              TextStyle(color: tamChartData!.somTextColor, fontSize: fontSize));
 
       final textPainter =
           TextPainter(text: textSpan, textDirection: TextDirection.ltr);
@@ -52,11 +70,11 @@ class TAMChartPainter extends CustomPainter {
       textPainter.paint(
           canvas,
           Offset(
-              size.width / 2 - textPainter.width / 2, size.height - tmRadius));
+              size.width / 2 - textPainter.width / 2, size.height - somRadius));
 
       //Drawing text for SAM
       final samTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.sam).toString(),
+          text: _convertDataValues(tamChartData!.sam).toString(),
           style: TextStyle(
               color: tamChartData!.samTextColor,
               fontSize: fontSize,
@@ -70,13 +88,13 @@ class TAMChartPainter extends CustomPainter {
           canvas,
           Offset(
               size.width / 2 - samTextPainter.width / 2,
-              (size.height - 2 * tmRadius) -
-                  ((2 * samRadius - 2 * tmRadius) / 2) -
+              (size.height - 2 * somRadius) -
+                  ((2 * samRadius - 2 * somRadius) / 2) -
                   samTextPainter.height / 2.35));
 
       //Drawing text for tam
       final tamTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tam).toString(),
+          text: _convertDataValues(tamChartData!.tam).toString(),
           style:
               TextStyle(color: tamChartData!.tamTextColor, fontSize: fontSize));
 
@@ -95,13 +113,13 @@ class TAMChartPainter extends CustomPainter {
 
     //TOP TAM CHART
 
-    if (tamChartData!.tamPosition == TamPositions.top) {
+    if (tamChartData!.somPosition == SomPositions.top) {
       // Calculating the radius for each circle based on the values
       double maxRadius =
           size.height / 4; // Assuming width and height of canvas are the same
       double tamRadius = maxRadius * (199 / 100);
       double samRadius = maxRadius * (137 / 100) + 2;
-      double tmRadius = maxRadius * (100 / 100);
+      double somRadius = maxRadius * (100 / 100);
 
       //Drawing TAM circle
       paint.color = tamChartData!.tamColor;
@@ -112,26 +130,26 @@ class TAMChartPainter extends CustomPainter {
       paint.color = tamChartData!.samColor;
       canvas.drawCircle(Offset(size.width / 2, samRadius), samRadius, paint);
 
-      // Drawing TM circle
-      paint.color = tamChartData!.tmColor;
-      canvas.drawCircle(Offset(size.width / 2, tmRadius), tmRadius, paint);
+      // Drawing SOM circle
+      paint.color = tamChartData!.somColor;
+      canvas.drawCircle(Offset(size.width / 2, somRadius), somRadius, paint);
 
-      //Drawing text for TM
+      //Drawing text for SOM
       final textSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tm),
+          text: _convertDataValues(tamChartData!.som),
           style:
-              TextStyle(color: tamChartData!.tmTextColor, fontSize: fontSize));
+              TextStyle(color: tamChartData!.somTextColor, fontSize: fontSize));
 
       final textPainter =
           TextPainter(text: textSpan, textDirection: TextDirection.ltr);
 
       textPainter.layout(minWidth: 0, maxWidth: size.width);
       textPainter.paint(
-          canvas, Offset(size.width / 2 - textPainter.width / 2, tmRadius));
+          canvas, Offset(size.width / 2 - textPainter.width / 2, somRadius));
 
       //Drawing text for SAM
       final samTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.sam),
+          text: _convertDataValues(tamChartData!.sam),
           style:
               TextStyle(color: tamChartData!.samTextColor, fontSize: fontSize));
 
@@ -143,13 +161,13 @@ class TAMChartPainter extends CustomPainter {
           canvas,
           Offset(
               size.width / 2 - samTextPainter.width / 2,
-              (2 * tmRadius) +
-                  ((2 * samRadius - 2 * tmRadius) / 2) -
+              (2 * somRadius) +
+                  ((2 * samRadius - 2 * somRadius) / 2) -
                   samTextPainter.height / 2.35));
 
       //Drawing text for tam
       final tamTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tam),
+          text: _convertDataValues(tamChartData!.tam),
           style:
               TextStyle(color: tamChartData!.tamTextColor, fontSize: fontSize));
 
@@ -168,13 +186,13 @@ class TAMChartPainter extends CustomPainter {
 
     //LEFT TAM CHART
 
-    if (tamChartData!.tamPosition == TamPositions.left) {
+    if (tamChartData!.somPosition == SomPositions.left) {
       // Calculating the radius for each circle based on the values
       double maxRadius =
           size.height / 4; // Assuming width and height of canvas are the same
       double tamRadius = maxRadius * (199 / 100);
       double samRadius = maxRadius * (137 / 100) + 7;
-      double tmRadius = maxRadius * (100 / 100) - 3;
+      double somRadius = maxRadius * (100 / 100) - 3;
 
       //Drawing TAM circle
       paint.color = tamChartData!.tamColor;
@@ -188,18 +206,18 @@ class TAMChartPainter extends CustomPainter {
           samRadius,
           paint);
 
-      // Drawing TM circle
-      paint.color = tamChartData!.tmColor;
+      // Drawing SOM circle
+      paint.color = tamChartData!.somColor;
       canvas.drawCircle(
-          Offset((size.width - size.height) / 2 + tmRadius, size.height / 2),
-          tmRadius,
+          Offset((size.width - size.height) / 2 + somRadius, size.height / 2),
+          somRadius,
           paint);
 
-      //Drawing text for TM
+      //Drawing text for SOM
       final textSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tm),
+          text: _convertDataValues(tamChartData!.som),
           style:
-              TextStyle(color: tamChartData!.tmTextColor, fontSize: fontSize));
+              TextStyle(color: tamChartData!.somTextColor, fontSize: fontSize));
 
       final textPainter =
           TextPainter(text: textSpan, textDirection: TextDirection.ltr);
@@ -208,12 +226,12 @@ class TAMChartPainter extends CustomPainter {
       textPainter.paint(
           canvas,
           Offset(
-              (size.width - size.height) / 2 + tmRadius - textPainter.width / 2,
+              (size.width - size.height) / 2 + somRadius - textPainter.width / 2,
               size.height / 2 - textPainter.height / 2));
 
       //Drawing text for SAM
       final samTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.sam),
+          text: _convertDataValues(tamChartData!.sam),
           style:
               TextStyle(color: tamChartData!.samTextColor, fontSize: fontSize));
 
@@ -225,14 +243,14 @@ class TAMChartPainter extends CustomPainter {
           canvas,
           Offset(
               (size.width - size.height) / 2 +
-                  (2 * tmRadius) +
-                  ((2 * samRadius - 2 * tmRadius) / 2) -
+                  (2 * somRadius) +
+                  ((2 * samRadius - 2 * somRadius) / 2) -
                   samTextPainter.width / 1.75,
               size.height / 2 - samTextPainter.height / 2));
 
       //Drawing text for tam
       final tamTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tam),
+          text: _convertDataValues(tamChartData!.tam),
           style:
               TextStyle(color: tamChartData!.tamTextColor, fontSize: fontSize));
 
@@ -251,13 +269,13 @@ class TAMChartPainter extends CustomPainter {
     }
 
     //RIGHT TAM CHART
-    if (tamChartData!.tamPosition == TamPositions.right) {
+    if (tamChartData!.somPosition == SomPositions.right) {
       // Calculating the radius for each circle based on the values
       double maxRadius =
           size.height / 4; // Assuming width and height of canvas are the same
       double tamRadius = maxRadius * (199 / 100);
       double samRadius = maxRadius * (137 / 100) + 7;
-      double tmRadius = maxRadius * (100 / 100) - 3;
+      double somRadius = maxRadius * (100 / 100) - 3;
 
       //Drawing TAM circle
       paint.color = tamChartData!.tamColor;
@@ -272,19 +290,19 @@ class TAMChartPainter extends CustomPainter {
           samRadius,
           paint);
 
-      // Drawing TM circle
-      paint.color = tamChartData!.tmColor;
+      // Drawing SOM circle
+      paint.color = tamChartData!.somColor;
       canvas.drawCircle(
-          Offset((size.width - size.height) / 2 + (size.height - tmRadius),
+          Offset((size.width - size.height) / 2 + (size.height - somRadius),
               size.height / 2),
-          tmRadius,
+          somRadius,
           paint);
 
-      //Drawing text for TM
+      //Drawing text for SOM
       final textSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tm),
+          text: _convertDataValues(tamChartData!.som),
           style:
-              TextStyle(color: tamChartData!.tmTextColor, fontSize: fontSize));
+              TextStyle(color: tamChartData!.somTextColor, fontSize: fontSize));
 
       final textPainter =
           TextPainter(text: textSpan, textDirection: TextDirection.ltr);
@@ -294,12 +312,12 @@ class TAMChartPainter extends CustomPainter {
           canvas,
           Offset(
               (size.width - size.height) / 2 +
-                  (size.height - tmRadius - textPainter.width / 2),
+                  (size.height - somRadius - textPainter.width / 2),
               size.height / 2 - textPainter.height / 2));
 
       //Drawing text for SAM
       final samTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.sam),
+          text: _convertDataValues(tamChartData!.sam),
           style:
               TextStyle(color: tamChartData!.samTextColor, fontSize: fontSize));
 
@@ -311,14 +329,14 @@ class TAMChartPainter extends CustomPainter {
           canvas,
           Offset(
               (size.width - size.height) / 2 +
-                  (size.height - 2 * tmRadius) -
-                  ((2 * samRadius - 2 * tmRadius) / 2) -
+                  (size.height - 2 * somRadius) -
+                  ((2 * samRadius - 2 * somRadius) / 2) -
                   samTextPainter.width / 2,
               size.height / 2 - samTextPainter.height / 2));
 
       //Drawing text for tam
       final tamTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tam),
+          text: _convertDataValues(tamChartData!.tam),
           style:
               TextStyle(color: tamChartData!.tamTextColor, fontSize: fontSize));
 
@@ -337,13 +355,13 @@ class TAMChartPainter extends CustomPainter {
     }
 
     //Center TAM CHART
-    if (tamChartData!.tamPosition == TamPositions.center) {
+    if (tamChartData!.somPosition == SomPositions.center) {
       // Calculating the radius for each circle based on the values
       double maxRadius =
           size.height / 4; // Assuming width and height of canvas are the same
       double tamRadius = maxRadius * (199 / 100);
       double samRadius = maxRadius * (137 / 100);
-      double tmRadius = maxRadius * (100 / 100) - 10;
+      double somRadius = maxRadius * (100 / 100) - 10;
 
       //Drawing TAM circle(Outer Circle)
       paint.color = tamChartData!.tamColor;
@@ -355,16 +373,16 @@ class TAMChartPainter extends CustomPainter {
       canvas.drawCircle(
           Offset((size.width / 2), size.height / 2), samRadius, paint);
 
-      // Drawing TM circle(Inner circle)
-      paint.color = tamChartData!.tmColor;
+      // Drawing SOM circle(Inner circle)
+      paint.color = tamChartData!.somColor;
       canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), tmRadius, paint);
+          Offset(size.width / 2, size.height / 2), somRadius, paint);
 
-      //Drawing text for TM(Inner Text)
+      //Drawing text for SOM(Inner Text)
       final textSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tm),
+          text: _convertDataValues(tamChartData!.som),
           style:
-              TextStyle(color: tamChartData!.tmTextColor, fontSize: fontSize));
+              TextStyle(color: tamChartData!.somTextColor, fontSize: fontSize));
 
       final textPainter =
           TextPainter(text: textSpan, textDirection: TextDirection.ltr);
@@ -377,7 +395,7 @@ class TAMChartPainter extends CustomPainter {
 
       //Drawing text for SAM
       final samTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.sam).toString(),
+          text: _convertDataValues(tamChartData!.sam).toString(),
           style:
               TextStyle(color: tamChartData!.samTextColor, fontSize: fontSize));
 
@@ -389,13 +407,13 @@ class TAMChartPainter extends CustomPainter {
           canvas,
           Offset(
               size.width / 2 - samTextPainter.width / 2,
-              (size.height / 2 - tmRadius) -
-                  ((samRadius - tmRadius) / 2) -
+              (size.height / 2 - somRadius) -
+                  ((samRadius - somRadius) / 2) -
                   samTextPainter.height / 4));
 
       //Drawing text for tam(Outer Text)
       final tamTextSpan = TextSpan(
-          text: convertDataValues(tamChartData!.tam).toString(),
+          text: _convertDataValues(tamChartData!.tam).toString(),
           style:
               TextStyle(color: tamChartData!.tamTextColor, fontSize: fontSize));
 
@@ -419,22 +437,8 @@ class TAMChartPainter extends CustomPainter {
   }
 }
 
-TamPositions? stringToTamPosition(String tamPosition) {
-  switch (tamPosition) {
-    case 'top':
-      return TamPositions.top;
-    case 'bottom':
-      return TamPositions.bottom;
-    case 'left':
-      return TamPositions.left;
-    case 'right':
-      return TamPositions.right;
-    default:
-      return null;
-  }
-}
 
-convertDataValues(double data) {
+_convertDataValues(double data) {
   if (data < 1000) {
     return data.toString();
   } else if (data >= 1000 && data < 1000000) {
@@ -449,7 +453,7 @@ convertDataValues(double data) {
   }
 }
 
-createAnimatedCircle(Paint paint, Canvas canvas, Color color, double angle,
+_createAnimatedCircle(Paint paint, Canvas canvas, Color color, double angle,
     Size size, double radius) {
   paint.color = color;
   const int segmentCount = 4;
