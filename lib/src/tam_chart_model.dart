@@ -17,16 +17,16 @@ class TAMChartData {
   final double tam;
 
   /// The value representing the Serviceable Available Market (SAM).
-  /// 
+  ///
   /// Numeric values will be formatted into more readable strings:
   /// - `750` → `"750"`
   /// - `1500` → `"1.5K"`
   /// - `1500000` → `"1.5M"`
-  /// - `1500000000` → `"1.5B"`  
+  /// - `1500000000` → `"1.5B"`
   final double sam;
 
   /// The value representing the Serviceable Obtainable Market (SOM).
-  /// 
+  ///
   /// Numeric values will be formatted into more readable strings:
   /// - `750` → `"750"`
   /// - `1500` → `"1.5K"`

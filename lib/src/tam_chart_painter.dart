@@ -278,20 +278,22 @@ class TAMChartPainter extends CustomPainter {
           offset: Offset(size.width / 2, size.height / 2));
 
       _createAnimatedCircle(
-          paint, canvas, tamChartData!.samColor, samAngle, size, samRadius,
-          offset: Offset((size.width - size.height) / 2 + (size.height - samRadius),
-              size.height / 2),);
+        paint,
+        canvas,
+        tamChartData!.samColor,
+        samAngle,
+        size,
+        samRadius,
+        offset: Offset(
+            (size.width - size.height) / 2 + (size.height - samRadius),
+            size.height / 2),
+      );
 
       _createAnimatedCircle(
           paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
-          offset: Offset((size.width - size.height) / 2 + (size.height - somRadius),
+          offset: Offset(
+              (size.width - size.height) / 2 + (size.height - somRadius),
               size.height / 2));
-
-      
-
-     
-
-     
 
       //Drawing text for SOM
       final textSpan = TextSpan(
@@ -358,13 +360,12 @@ class TAMChartPainter extends CustomPainter {
       double samRadius = maxRadius * (137 / 100);
       double somRadius = maxRadius * (100 / 100) - 10;
 
-
       //Drawing TAM circle(Outer Circle)
       _createAnimatedCircle(
           paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius,
           offset: Offset(size.width / 2, size.height / 2));
-        
-        // Drawing SAM circle
+
+      // Drawing SAM circle
       _createAnimatedCircle(
           paint, canvas, tamChartData!.samColor, samAngle, size, samRadius,
           offset: Offset((size.width / 2), size.height / 2));
@@ -372,14 +373,7 @@ class TAMChartPainter extends CustomPainter {
       // Drawing SOM circle(Inner circle)
       _createAnimatedCircle(
           paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
-          offset:  Offset(size.width / 2, size.height / 2));
-
-
-      
-
-     
-
-      
+          offset: Offset(size.width / 2, size.height / 2));
 
       //Drawing text for SOM(Inner Text)
       final textSpan = TextSpan(
