@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.0] - 2024-07-13
+### Added
+- Added a comprehensive README file to provide detailed information about the project.
+- Updated animation features for smoother transitions and enhanced visual appeal.
+
 ## [0.0.1] - 2024-07-11
 ### Added
 - Initial release of the tam chart package.

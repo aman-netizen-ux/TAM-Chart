@@ -121,18 +121,17 @@ class TAMChartPainter extends CustomPainter {
       double samRadius = maxRadius * (137 / 100) + 2;
       double somRadius = maxRadius * (100 / 100);
 
-      //Drawing TAM circle
-      paint.color = tamChartData!.tamColor;
-      canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), tamRadius, paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius,
+          offset: Offset(size.width / 2, size.height / 2));
 
-      // Drawing SAM circle
-      paint.color = tamChartData!.samColor;
-      canvas.drawCircle(Offset(size.width / 2, samRadius), samRadius, paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.samColor, samAngle, size, samRadius,
+          offset: Offset(size.width / 2, samRadius));
 
-      // Drawing SOM circle
-      paint.color = tamChartData!.somColor;
-      canvas.drawCircle(Offset(size.width / 2, somRadius), somRadius, paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
+          offset: Offset(size.width / 2, somRadius));
 
       //Drawing text for SOM
       final textSpan = TextSpan(
@@ -194,24 +193,19 @@ class TAMChartPainter extends CustomPainter {
       double samRadius = maxRadius * (137 / 100) + 7;
       double somRadius = maxRadius * (100 / 100) - 3;
 
-      //Drawing TAM circle
-      paint.color = tamChartData!.tamColor;
-      canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), tamRadius, paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius,
+          offset: Offset(size.width / 2, size.height / 2));
 
-      // Drawing SAM circle
-      paint.color = tamChartData!.samColor;
-      canvas.drawCircle(
-          Offset((size.width - size.height) / 2 + samRadius, size.height / 2),
-          samRadius,
-          paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.samColor, samAngle, size, samRadius,
+          offset: Offset(
+              (size.width - size.height) / 2 + samRadius, size.height / 2));
 
-      // Drawing SOM circle
-      paint.color = tamChartData!.somColor;
-      canvas.drawCircle(
-          Offset((size.width - size.height) / 2 + somRadius, size.height / 2),
-          somRadius,
-          paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
+          offset: Offset(
+              (size.width - size.height) / 2 + somRadius, size.height / 2));
 
       //Drawing text for SOM
       final textSpan = TextSpan(
@@ -226,7 +220,9 @@ class TAMChartPainter extends CustomPainter {
       textPainter.paint(
           canvas,
           Offset(
-              (size.width - size.height) / 2 + somRadius - textPainter.width / 2,
+              (size.width - size.height) / 2 +
+                  somRadius -
+                  textPainter.width / 2,
               size.height / 2 - textPainter.height / 2));
 
       //Drawing text for SAM
@@ -277,26 +273,27 @@ class TAMChartPainter extends CustomPainter {
       double samRadius = maxRadius * (137 / 100) + 7;
       double somRadius = maxRadius * (100 / 100) - 3;
 
-      //Drawing TAM circle
-      paint.color = tamChartData!.tamColor;
-      canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), tamRadius, paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius,
+          offset: Offset(size.width / 2, size.height / 2));
 
-      // Drawing SAM circle
-      paint.color = tamChartData!.samColor;
-      canvas.drawCircle(
-          Offset((size.width - size.height) / 2 + (size.height - samRadius),
-              size.height / 2),
-          samRadius,
-          paint);
+      _createAnimatedCircle(
+        paint,
+        canvas,
+        tamChartData!.samColor,
+        samAngle,
+        size,
+        samRadius,
+        offset: Offset(
+            (size.width - size.height) / 2 + (size.height - samRadius),
+            size.height / 2),
+      );
 
-      // Drawing SOM circle
-      paint.color = tamChartData!.somColor;
-      canvas.drawCircle(
-          Offset((size.width - size.height) / 2 + (size.height - somRadius),
-              size.height / 2),
-          somRadius,
-          paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
+          offset: Offset(
+              (size.width - size.height) / 2 + (size.height - somRadius),
+              size.height / 2));
 
       //Drawing text for SOM
       final textSpan = TextSpan(
@@ -364,19 +361,19 @@ class TAMChartPainter extends CustomPainter {
       double somRadius = maxRadius * (100 / 100) - 10;
 
       //Drawing TAM circle(Outer Circle)
-      paint.color = tamChartData!.tamColor;
-      canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), tamRadius, paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius,
+          offset: Offset(size.width / 2, size.height / 2));
 
       // Drawing SAM circle
-      paint.color = tamChartData!.samColor;
-      canvas.drawCircle(
-          Offset((size.width / 2), size.height / 2), samRadius, paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.samColor, samAngle, size, samRadius,
+          offset: Offset((size.width / 2), size.height / 2));
 
       // Drawing SOM circle(Inner circle)
-      paint.color = tamChartData!.somColor;
-      canvas.drawCircle(
-          Offset(size.width / 2, size.height / 2), somRadius, paint);
+      _createAnimatedCircle(
+          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
+          offset: Offset(size.width / 2, size.height / 2));
 
       //Drawing text for SOM(Inner Text)
       final textSpan = TextSpan(
@@ -437,7 +434,6 @@ class TAMChartPainter extends CustomPainter {
   }
 }
 
-
 _convertDataValues(double data) {
   if (data < 1000) {
     return data.toString();
@@ -454,7 +450,8 @@ _convertDataValues(double data) {
 }
 
 _createAnimatedCircle(Paint paint, Canvas canvas, Color color, double angle,
-    Size size, double radius) {
+    Size size, double radius,
+    {Offset? offset}) {
   paint.color = color;
   const int segmentCount = 4;
   final int currentSegment = (angle * segmentCount).floor();
@@ -472,7 +469,7 @@ _createAnimatedCircle(Paint paint, Canvas canvas, Color color, double angle,
     // Draw the segment
     canvas.drawArc(
       Rect.fromCenter(
-          center: Offset(size.width / 2, size.height - radius),
+          center: offset ?? Offset(size.width / 2, size.height - radius),
           width: 2 * radius,
           height: 2 * radius),
       segmentStartAngle,

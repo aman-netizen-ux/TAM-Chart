@@ -9,7 +9,7 @@ import 'package:tam_chart/src/tam_chart_painter.dart';
 /// a TAM chart with animation for each circle representing different market segments.
 class TAMChart extends StatefulWidget {
   /// The data to be displayed in the TAM chart with its styling properties.
-  /// 
+  ///
   /// Example usage:
   /// ```dart
   /// TAMChart(
