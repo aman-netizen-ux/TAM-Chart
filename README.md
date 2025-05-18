@@ -7,27 +7,29 @@ A customizable charting package for Flutter, supporting all platforms.
 
 A powerful and easy-to-use Flutter library for creating and displaying animated charts representing Total Addressable Market (TAM) data.
 
-## Features
-- **Animated Charts**: Animate the TAM, SAM, and SOM circles with configurable durations.
-- **Customizable Styles**: Customize colors and text styles for each circle to match your app's theme.
-- **Flexible Positioning**: Position the SOM circle within the chart using predefined positions (top, bottom, left, right, center).
-- **Readable Numeric Values**: Format numeric values into readable strings (e.g., 1.5K for 1500, 1.5M for 1500000).
+## ✨ Features
+- 🎯 **Animated Charts**: Smooth drawing animations with customizable duration.
+- 🎨 **Style Customization**: Customize colors and text styles for each circle to match your app's theme.
+- 🧭 **Directional Animation Support**: Circle drawing animation now respects the `somPosition` and `direction` values. For example, if `somPosition` is set to `top`, the animation begins and ends at the top. If it’s `left`, it starts and ends from the left.
+- 📍**Flexible Positioning**: Position the SOM circle within the chart using predefined positions (top, bottom, left, right, center).
+- 🔢 **Readable Numeric Values**: Large numbers are auto-formatted (e.g. `1500` → `1.5K`, `1500000` → `1.5M`).
+- 💾 **Chart Export (NEW)**: Easily export the chart as a PNG image and save it to disk or download in the browser
 - **Easy Integration**: Seamlessly integrate the package into your Flutter project with minimal setup.
 
 ## Installing
 
 ```yaml
 dependencies:
-  tam_chart: ^1.0.0
+  tam_chart: ^1.1.0
 ```
 
-### Import
+### 🧑‍💻 Import
 
 ```dart
 import 'package:tam_chart/tam_chart.dart';
 ```
 
-## How To Use
+## 🚀 How To Use
 
 ```dart
 final chart= TAMChart(
@@ -47,11 +49,18 @@ final chart= TAMChart(
             size: const Size(200, 200));
 ```
 
+## 📤 Exporting the Chart (NEW in v1.1.0)
+You can now export the TAM Chart as a PNG image programmatically.
+
+```dart
+final imageBytes = await TAMChartExport.captureAsImage(chartKey);
+final path = await TAMChartExport.saveImageToFile(imageBytes);
+```
 
 ## Showcase
 Here is an example screenshot of the TAM Chart in action:
 
-![Example Screenshot](images/tamchart_example.gif)
+![Example Screenshot](images/tam_chart_example.gif)
 
 ## Suggestions & Bugs
 For any suggestions or bug report please head to [issue tracker](https://github.com/aman-netizen-ux/TAM-Chart/issues). If you feel library is missing a feature, [pull request](https://github.com/aman-netizen-ux/TAM-Chart/pulls) are welcome

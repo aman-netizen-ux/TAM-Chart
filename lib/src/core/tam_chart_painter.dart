@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:tam_chart/src/tam_chart_model.dart';
-import 'package:tam_chart/src/som_position_enums.dart';
+import 'package:tam_chart/src/core/tam_chart_model.dart';
+import 'package:tam_chart/src/core/som_position_enums.dart';
 
 /// A custom painter class that renders a Total Addressable Market (TAM) chart.
 ///
@@ -48,14 +48,14 @@ class TAMChartPainter extends CustomPainter {
       double samRadius = maxRadius * (137 / 100) + 2;
       double somRadius = maxRadius * (100 / 100);
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius);
+      _createAnimatedCircle(paint, canvas, tamChartData!.tamColor, tamAngle,
+          size, tamRadius, tamChartData!.somPosition);
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.samColor, samAngle, size, samRadius);
+      _createAnimatedCircle(paint, canvas, tamChartData!.samColor, samAngle,
+          size, samRadius, tamChartData!.somPosition);
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius);
+      _createAnimatedCircle(paint, canvas, tamChartData!.somColor, somAngle,
+          size, somRadius, tamChartData!.somPosition);
 
       //Drawing text for SOM
       final textSpan = TextSpan(
@@ -121,16 +121,16 @@ class TAMChartPainter extends CustomPainter {
       double samRadius = maxRadius * (137 / 100) + 2;
       double somRadius = maxRadius * (100 / 100);
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.tamColor, tamAngle,
+          size, tamRadius, tamChartData!.somPosition,
           offset: Offset(size.width / 2, size.height / 2));
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.samColor, samAngle, size, samRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.samColor, samAngle,
+          size, samRadius, tamChartData!.somPosition,
           offset: Offset(size.width / 2, samRadius));
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.somColor, somAngle,
+          size, somRadius, tamChartData!.somPosition,
           offset: Offset(size.width / 2, somRadius));
 
       //Drawing text for SOM
@@ -193,17 +193,17 @@ class TAMChartPainter extends CustomPainter {
       double samRadius = maxRadius * (137 / 100) + 7;
       double somRadius = maxRadius * (100 / 100) - 3;
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.tamColor, tamAngle,
+          size, tamRadius, tamChartData!.somPosition,
           offset: Offset(size.width / 2, size.height / 2));
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.samColor, samAngle, size, samRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.samColor, samAngle,
+          size, samRadius, tamChartData!.somPosition,
           offset: Offset(
               (size.width - size.height) / 2 + samRadius, size.height / 2));
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.somColor, somAngle,
+          size, somRadius, tamChartData!.somPosition,
           offset: Offset(
               (size.width - size.height) / 2 + somRadius, size.height / 2));
 
@@ -273,8 +273,8 @@ class TAMChartPainter extends CustomPainter {
       double samRadius = maxRadius * (137 / 100) + 7;
       double somRadius = maxRadius * (100 / 100) - 3;
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.tamColor, tamAngle,
+          size, tamRadius, tamChartData!.somPosition,
           offset: Offset(size.width / 2, size.height / 2));
 
       _createAnimatedCircle(
@@ -284,13 +284,14 @@ class TAMChartPainter extends CustomPainter {
         samAngle,
         size,
         samRadius,
+        tamChartData!.somPosition,
         offset: Offset(
             (size.width - size.height) / 2 + (size.height - samRadius),
             size.height / 2),
       );
 
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.somColor, somAngle,
+          size, somRadius, tamChartData!.somPosition,
           offset: Offset(
               (size.width - size.height) / 2 + (size.height - somRadius),
               size.height / 2));
@@ -361,18 +362,18 @@ class TAMChartPainter extends CustomPainter {
       double somRadius = maxRadius * (100 / 100) - 10;
 
       //Drawing TAM circle(Outer Circle)
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.tamColor, tamAngle, size, tamRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.tamColor, tamAngle,
+          size, tamRadius, tamChartData!.somPosition,
           offset: Offset(size.width / 2, size.height / 2));
 
       // Drawing SAM circle
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.samColor, samAngle, size, samRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.samColor, samAngle,
+          size, samRadius, tamChartData!.somPosition,
           offset: Offset((size.width / 2), size.height / 2));
 
       // Drawing SOM circle(Inner circle)
-      _createAnimatedCircle(
-          paint, canvas, tamChartData!.somColor, somAngle, size, somRadius,
+      _createAnimatedCircle(paint, canvas, tamChartData!.somColor, somAngle,
+          size, somRadius, tamChartData!.somPosition,
           offset: Offset(size.width / 2, size.height / 2));
 
       //Drawing text for SOM(Inner Text)
@@ -449,14 +450,29 @@ _convertDataValues(double data) {
   }
 }
 
+double _getStartAngle(SomPositions position) {
+  switch (position) {
+    case SomPositions.top:
+      return -pi / 2;
+    case SomPositions.bottom:
+      return pi / 2;
+    case SomPositions.right:
+      return 0;
+    case SomPositions.left:
+      return pi;
+    default:
+      return -pi / 2;
+  }
+}
+
 _createAnimatedCircle(Paint paint, Canvas canvas, Color color, double angle,
-    Size size, double radius,
+    Size size, double radius, SomPositions position,
     {Offset? offset}) {
   paint.color = color;
   const int segmentCount = 4;
   final int currentSegment = (angle * segmentCount).floor();
   const double sweep = 2 * pi / segmentCount;
-  const double startAngle = -pi / 2; // Start at the top of the circle
+  double startAngle = _getStartAngle(position);
 
   for (int i = 0; i <= currentSegment; i++) {
     // For the current segment, use the animation progress to determine the sweep angle

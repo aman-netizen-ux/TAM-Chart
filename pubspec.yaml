@@ -1,6 +1,6 @@
 name: tam_chart
-description: "The TAM Chart package is a powerful and easy-to-use Flutter library for creating and displaying animated custom charts representing Total Addressable Market (TAM) data. This package allows you to visualize complex market data "
-version: 1.0.0
+description: "A customizable and animated Flutter chart library for visualizing Total Addressable Market (TAM), SAM, and SOM data with export support and directional animations. This package allows you to visualize complex market data "
+version: 1.1.0
 homepage: https://github.com/aman-netizen-ux/TAM-Chart
 
 environment:

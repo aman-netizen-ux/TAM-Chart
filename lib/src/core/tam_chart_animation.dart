@@ -1,7 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:tam_chart/src/tam_chart_model.dart';
-import 'package:tam_chart/src/tam_chart_painter.dart';
+import 'package:tam_chart/src/core/tam_chart_model.dart';
+import 'package:tam_chart/src/core/tam_chart_painter.dart';
 
 /// A widget that displays a Total Addressable Market (TAM) chart.
 ///

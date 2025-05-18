@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:tam_chart/src/som_position_enums.dart';
+import 'package:tam_chart/src/core/som_position_enums.dart';
 
 /// A model class that holds the data for the TAM chart.
 ///
